@@ -21,9 +21,15 @@
     "url": "https://github.com/JohnWDevine85/Group6_Skindeep/issues"
   },
   "homepage": "https://github.com/JohnWDevine85/Group6_Skindeep#readme",
+<<<<<<< HEAD
   "dependencies": {},
   "devDependencies": {
     "concurrently": "^6.2.1",
     "nodemon": "^2.0.12"
+=======
+  "dependencies": {
+    "graphql": "^15.5.1",
+    "mongoose": "^5.13.7"
+>>>>>>> 69a5be9801cef4e50dac5ee26a0ad9895e57f981
   }
 }
