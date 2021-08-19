@@ -20,5 +20,9 @@
   "bugs": {
     "url": "https://github.com/JohnWDevine85/Group6_Skindeep/issues"
   },
-  "homepage": "https://github.com/JohnWDevine85/Group6_Skindeep#readme"
+  "homepage": "https://github.com/JohnWDevine85/Group6_Skindeep#readme",
+  "dependencies": {
+    "graphql": "^15.5.1",
+    "mongoose": "^5.13.7"
+  }
 }
