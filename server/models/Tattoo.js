@@ -20,9 +20,9 @@ const tattooSchema = new Schema({
     required: true,
   },
   likes: {
-      type: Number,
-      min: 0,
-      default: 0
+    type: Number,
+    min: 0,
+    default: 0
   },
 });
 
