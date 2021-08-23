@@ -43,6 +43,7 @@ const typeDefs = gql`
         login(email: String!, password: String!): Auth
         addUser(username: String!, email: String!, password: String!): Auth
         addTattoo(title: String!, image: String!, description: String): Tattoo
+        removeTattoo(tattooId: ID!): User
         likeTattoo(tattooId: ID!): Tattoo
         unlikeTattoo(tattooId: ID!): Tattoo
         addComment(tattooId: ID!, commentBody: String!): Tattoo

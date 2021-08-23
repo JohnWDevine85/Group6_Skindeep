@@ -79,6 +79,22 @@ const resolvers = {
             return newTattoo;
         },
 
+        removeTattoo: async( parent, {tattooId}, context) => {
+            if (!context.user) {
+                throw new AuthenticationError('You need to be logged in!');
+            }
+
+            const updatedUser = await User.findOneAndUpdate(
+                {_id: context.user._id},
+                {$pull: {personalWork: {_id: tattooId}}},
+                {new: true}
+            )
+
+            await Tattoo.findOneAndDelete({_id: tattooId});
+
+            return updatedUser;
+        },
+
         likeTattoo: async (parent, { tattooId }, context) => {
             if (!context.user) {
                 throw new AuthenticationError('You need to be logged in!');

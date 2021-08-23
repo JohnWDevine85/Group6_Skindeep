@@ -82,3 +82,28 @@ mutation addComment($tattooId: ID!, $commentBody: String!) {
     }
 }
 `;
+
+export const REMOVE_TATTOO = gql`
+mutation removeTattoo($tattooId: ID!){
+    removeTattoo(tattooId: $tattooId) {
+        _id
+        username
+        email
+        bio
+        likedTattoos{
+            _id
+            title
+            username
+            image
+            likes
+        }
+        personalWork{
+            _id
+            title
+            username
+            image
+            likes
+        }
+    }
+}
+`;
