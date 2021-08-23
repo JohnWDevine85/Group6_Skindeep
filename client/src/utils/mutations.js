@@ -51,3 +51,16 @@ mutation likeTattoo($_id: ID!) {
     }
 }
 `;
+
+export const UNLIKE_TATTOO = gql`
+mutation unlikeTattoo($_id: ID!) {
+    unlikeTattoo(_id: $_id) {
+        _id
+        title
+        username
+        image
+        description
+        likes
+    }
+}
+`;

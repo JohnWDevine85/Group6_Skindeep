@@ -99,6 +99,28 @@ const resolvers = {
                 .populate('comments')
 
             return updatedTattoo;
+        },
+
+        unlikeTattoo: async (parent, { _id }, context) => {
+            if (!context.user) {
+                throw new AuthenticationError('You need to be logged in!');
+            }
+
+            const updatedUser = await User.findOneAndUpdate(
+                { _id: context.user._id },
+                { $pull: { likedTattoos: _id } },
+                { new: true }
+            )
+                .populate('likedTattoos');
+
+            const updatedTattoo = await Tattoo.findOneAndUpdate(
+                { _id },
+                {$inc : {'likes' : -1}},
+                { new: true }
+            )
+                .populate('comments')
+
+            return updatedTattoo;
         }
     }
 };
