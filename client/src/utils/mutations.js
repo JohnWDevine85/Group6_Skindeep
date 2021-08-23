@@ -64,3 +64,21 @@ mutation unlikeTattoo($_id: ID!) {
     }
 }
 `;
+
+export const ADD_COMMENT = gql`
+mutation addComment($_id: ID!, $commentBody: String!) {
+    addComment(_id: $_id, commentBody: $commentBody) {
+        _id
+        title
+        username
+        image
+        description
+        likes
+        comments {
+            _id
+            username
+            commentBody
+        }
+    }
+}
+`;

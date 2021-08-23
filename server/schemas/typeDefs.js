@@ -45,6 +45,7 @@ const typeDefs = gql`
         addTattoo(title: String!, image: String!, description: String): Tattoo
         likeTattoo(_id: ID!): Tattoo
         unlikeTattoo(_id: ID!): Tattoo
+        addComment(_id: ID!, commentBody: String!): Tattoo
     }
 `;
 

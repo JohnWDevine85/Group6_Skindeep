@@ -121,6 +121,19 @@ const resolvers = {
                 .populate('comments')
 
             return updatedTattoo;
+        },
+
+        addComment: async (parent, {_id, commentBody}, context) => {
+            if (!context.user) {
+                throw new AuthenticationError('You need to be logged in!');
+            }
+
+            return await Tattoo.findOneAndUpdate(
+                {_id},
+                {$push: {comments: {commentBody, username: context.user.username}}},
+                {new: true}
+            )
+            .populate('comments');
         }
     }
 };
