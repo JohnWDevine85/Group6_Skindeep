@@ -43,9 +43,9 @@ const typeDefs = gql`
         login(email: String!, password: String!): Auth
         addUser(username: String!, email: String!, password: String!): Auth
         addTattoo(title: String!, image: String!, description: String): Tattoo
-        likeTattoo(_id: ID!): Tattoo
-        unlikeTattoo(_id: ID!): Tattoo
-        addComment(_id: ID!, commentBody: String!): Tattoo
+        likeTattoo(tattooId: ID!): Tattoo
+        unlikeTattoo(tattooId: ID!): Tattoo
+        addComment(tattooId: ID!, commentBody: String!): Tattoo
     }
 `;
 

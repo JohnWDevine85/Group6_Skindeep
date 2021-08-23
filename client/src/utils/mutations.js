@@ -40,8 +40,8 @@ mutation addTattoo($title: String!, $image: String!, $description: String) {
 `;
 
 export const LIKE_TATTOO = gql`
-mutation likeTattoo($_id: ID!) {
-    likeTattoo(_id: $_id) {
+mutation likeTattoo($tattooId: ID!) {
+    likeTattoo(tattooId: $tattooId) {
         _id
         title
         username
@@ -53,8 +53,8 @@ mutation likeTattoo($_id: ID!) {
 `;
 
 export const UNLIKE_TATTOO = gql`
-mutation unlikeTattoo($_id: ID!) {
-    unlikeTattoo(_id: $_id) {
+mutation unlikeTattoo($tattooId: ID!) {
+    unlikeTattoo(tattooId: $tattooId) {
         _id
         title
         username
@@ -66,8 +66,8 @@ mutation unlikeTattoo($_id: ID!) {
 `;
 
 export const ADD_COMMENT = gql`
-mutation addComment($_id: ID!, $commentBody: String!) {
-    addComment(_id: $_id, commentBody: $commentBody) {
+mutation addComment($tattooId: ID!, $commentBody: String!) {
+    addComment(tattooId: $tattooId, commentBody: $commentBody) {
         _id
         title
         username

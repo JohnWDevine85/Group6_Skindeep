@@ -79,7 +79,7 @@ const resolvers = {
             return newTattoo;
         },
 
-        likeTattoo: async (parent, { _id }, context) => {
+        likeTattoo: async (parent, { tattooId }, context) => {
             if (!context.user) {
                 throw new AuthenticationError('You need to be logged in!');
             }
@@ -101,7 +101,7 @@ const resolvers = {
             return updatedTattoo;
         },
 
-        unlikeTattoo: async (parent, { _id }, context) => {
+        unlikeTattoo: async (parent, { tattooId }, context) => {
             if (!context.user) {
                 throw new AuthenticationError('You need to be logged in!');
             }
@@ -123,13 +123,13 @@ const resolvers = {
             return updatedTattoo;
         },
 
-        addComment: async (parent, {_id, commentBody}, context) => {
+        addComment: async (parent, {tattooId, commentBody}, context) => {
             if (!context.user) {
                 throw new AuthenticationError('You need to be logged in!');
             }
 
             return await Tattoo.findOneAndUpdate(
-                {_id},
+                {_id: tattooId},
                 {$push: {comments: {commentBody, username: context.user.username}}},
                 {new: true}
             )
