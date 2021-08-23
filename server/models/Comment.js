@@ -1,22 +1,17 @@
-const mongoose = require("mongoose");
-const { Schema } = mongoose;
+const { Schema } = require("mongoose");
 
-const commentSchema = new Schema({
-  tattoo_id: {
-    type: Schema.Types.ObjectId,
-    ref: "Tattoo",
-    required: true,
-  },
-  user_id: {
-    type: Schema.Types.ObjectId,
-    ref: "User",
-    required: true,
-  },
-  comment: {
-    type: String,
-  },
-});
+const commentSchema = new Schema(
+  {
+    username: {
+      type: String,
+      required: true,
+      maxlength: 280
+    },
+    commentBody: {
+      type: String,
+      required: true
+    }
+  }
+);
 
-const Comment = mongoose.model("Comment", commentSchema);
-
-module.exports = Comment;
+module.exports = commentSchema;
