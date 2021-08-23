@@ -9,8 +9,7 @@ const tattooSchema = new Schema(
       trim: true,
     },
     username: {
-      type: Schema.Types.ObjectId,
-      ref: "User",
+      type: String,
       required: true,
     },
     image: {

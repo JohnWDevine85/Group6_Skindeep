@@ -73,8 +73,8 @@ query tattoo($_id: ID!) {
 `;
 
 export const GET_TATTOOS = gql`
-query tattoos($title: String, $category: String) {
-    tattoos(title: $title, category: $category) {
+query tattoos($title: String) {
+    tattoos(title: $title) {
         _id
         title
         username

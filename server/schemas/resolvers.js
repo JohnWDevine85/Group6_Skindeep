@@ -5,38 +5,36 @@ const { signToken } = require('../utils/auth');
 const resolvers = {
 
     Query: {
-        me: async(parent, args, context) => {
-            if(context.user) {
-                const userData = await User.findOne({_id: context.user._id})
-                .select('-__v -password')
-                .populate('likedTattoos')
-                .populate('personalWork');
+        me: async (parent, args, context) => {
+            if (context.user) {
+                const userData = await User.findOne({ _id: context.user._id })
+                    .select('-__v -password')
+                    .populate('likedTattoos')
+                    .populate('personalWork');
 
                 return userData;
             }
 
             throw new AuthenticationError('Not logged in');
         },
-        
-        user: async(parent, {username}) => {
-            return User.findOne({username})
-            .select('-__v -password')
-            .populate('likedTattoos')
-            .populate('personalWork');
+
+        user: async (parent, { username }) => {
+            return User.findOne({ username })
+                .select('-__v -password')
+                .populate('likedTattoos')
+                .populate('personalWork');
         },
 
-        tattoo: async(parent, {_id}) => {
-            return Tattoo.findOne({_id})
-            .select('-__v')
-            .populate('comments');
+        tattoo: async (parent, { _id }) => {
+            return Tattoo.findOne({ _id })
+                .select('-__v')
+                .populate('comments');
         },
 
-        tattoos: async(parent, {title}) => {
-            return Tattoo.find({
-                title,
-                category: title
-            })
-            .select('-__v -comments')
+        tattoos: async (parent, { title }) => {
+            const params = title ? { title } : {};
+            return Tattoo.find(params)
+                .select('-__v -comments')
         }
     },
 
@@ -45,24 +43,62 @@ const resolvers = {
             const user = await User.create(args);
             const token = signToken(user);
 
-            return {token, user}
+            return { token, user }
         },
-        
-        login: async (parent, {email, password}) => {
-            const user = await User.findOne({email});
 
-            if(!user) {
+        login: async (parent, { email, password }) => {
+            const user = await User.findOne({ email });
+
+            if (!user) {
                 throw new AuthenticationError('Incorrect credentials');
             }
 
             const isCorrectPw = await user.isCorrectPassword(password);
 
-            if(!isCorrectPw) {
+            if (!isCorrectPw) {
                 throw new AuthenticationError('Incorrect credentials')
             }
 
             const token = signToken(user);
-            return {token, user};
+            return { token, user };
+        },
+
+        addTattoo: async (parent, args, context) => {
+            if (!context.user) {
+                throw new AuthenticationError('You need to be logged in!');
+            }
+
+            const newTattoo = await Tattoo.create({ ...args, username: context.user.username });
+
+            await User.findOneAndUpdate(
+                { _id: context.user._id },
+                { $push: { personalWork: newTattoo } },
+                { new: true }
+            )
+
+            return newTattoo;
+        },
+
+        likeTattoo: async (parent, { _id }, context) => {
+            if (!context.user) {
+                throw new AuthenticationError('You need to be logged in!');
+            }
+
+            const updatedUser = await User.findOneAndUpdate(
+                { _id: context.user._id },
+                { $addToSet: { likedTattoos: _id } },
+                { new: true }
+            )
+                .populate('likedTattoos');
+
+            const updatedTattoo = await Tattoo.findOneAndUpdate(
+                { _id },
+                {$inc : {'likes' : 1}},
+                { new: true }
+            )
+                .populate('comments')
+
+            return updatedTattoo;
         }
     }
 };

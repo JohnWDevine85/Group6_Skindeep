@@ -25,3 +25,29 @@ mutation login($email: String!, $password: String!) {
     }
 }
 `;
+
+export const ADD_TATTOO = gql`
+mutation addTattoo($title: String!, $image: String!, $description: String) {
+    addTattoo(title: $title, image: $image, description: $description) {
+        _id
+        title
+        username
+        image
+        description
+        likes
+    }
+}
+`;
+
+export const LIKE_TATTOO = gql`
+mutation likeTattoo($_id: ID!) {
+    likeTattoo(_id: $_id) {
+        _id
+        title
+        username
+        image
+        description
+        likes
+    }
+}
+`;

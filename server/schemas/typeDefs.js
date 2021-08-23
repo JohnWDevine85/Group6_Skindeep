@@ -36,12 +36,14 @@ const typeDefs = gql`
         me: User
         user(username: String!): User
         tattoo(_id: ID!): Tattoo
-        tattoos(title: String, category: String): [Tattoo]
+        tattoos(title: String): [Tattoo]
     }
 
     type Mutation {
         login(email: String!, password: String!): Auth
         addUser(username: String!, email: String!, password: String!): Auth
+        addTattoo(title: String!, image: String!, description: String): Tattoo
+        likeTattoo(_id: ID!): Tattoo
     }
 `;
 
