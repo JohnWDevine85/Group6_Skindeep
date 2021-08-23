@@ -11,22 +11,20 @@ const typeDefs = gql`
         personalWork: [Tattoo]
     }
 
+    type Comment {
+        _id: ID
+        username: String
+        commentBody: String
+    }
+
     type Tattoo {
         _id: ID
         title: String
         username: String
         image: String
         description: String
-        category: [String]
-        likeCount: Int
+        likes: Int
         comments: [Comment]
-    }
-
-    type Comment {
-        _id: ID
-        username: String
-        tattooId: ID
-        commentText: String
     }
 
     type Auth {
@@ -37,6 +35,8 @@ const typeDefs = gql`
     type Query {
         me: User
         user(username: String!): User
+        tattoo(_id: ID!): Tattoo
+        tattoos(title: String, category: String): [Tattoo]
     }
 
     type Mutation {

@@ -1,4 +1,4 @@
-const { User } = require('../models');
+const { User, Tattoo } = require('../models');
 const { AuthenticationError } = require('apollo-server-express');
 const { signToken } = require('../utils/auth');
 
@@ -22,7 +22,21 @@ const resolvers = {
             return User.findOne({username})
             .select('-__v -password')
             .populate('likedTattoos')
-            .populate('personalWork')
+            .populate('personalWork');
+        },
+
+        tattoo: async(parent, {_id}) => {
+            return Tattoo.findOne({_id})
+            .select('-__v')
+            .populate('comments');
+        },
+
+        tattoos: async(parent, {title}) => {
+            return Tattoo.find({
+                title,
+                category: title
+            })
+            .select('-__v -comments')
         }
     },
 

@@ -53,3 +53,34 @@ query {
     }
 }
 `;
+
+export const GET_TATTOO = gql`
+query tattoo($_id: ID!) {
+    tattoo(_id: $_id) {
+        _id
+        title
+        username
+        image
+        description
+        likes
+        comments {
+            _id
+            username
+            commentBody
+        }
+    }
+}
+`;
+
+export const GET_TATTOOS = gql`
+query tattoos($title: String, $category: String) {
+    tattoos(title: $title, category: $category) {
+        _id
+        title
+        username
+        image
+        description
+        likes
+    }
+}
+`;
