@@ -6,15 +6,18 @@ const typeDefs = gql`
         _id: ID
         username: String
         email: String
+        bio: String
         likedTattoos: [Tattoo]
+        personalWork: [Tattoo]
     }
 
     type Tattoo {
         _id: ID
         title: String
         username: String
-        category: [String]
+        image: String
         description: String
+        category: [String]
         likeCount: Int
         comments: [Comment]
     }
