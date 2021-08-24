@@ -23,5 +23,8 @@
   "homepage": "https://github.com/JohnWDevine85/Group6_Skindeep#readme",
   "devDependencies": {
     "concurrently": "^6.2.1"
+  },
+  "dependencies": {
+    "react-bootstrap-drawer": "^1.0.0"
   }
 }
