@@ -24,7 +24,17 @@ const tattooSchema = new Schema(
       min: 0,
       default: 0
     },
-    comments: [commentSchema]
+    comments: [commentSchema],
+    createdAt: {
+      type: Date, 
+      default: Date.now,
+      get: timestamp => dateFormat(timestamp)
+    }
+  },
+  {
+    toJSON: {
+      getters: true
+    }
   }
 );
 

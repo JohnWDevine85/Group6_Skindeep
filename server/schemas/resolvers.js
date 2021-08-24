@@ -35,6 +35,7 @@ const resolvers = {
             const params = title ? { title } : {};
             return Tattoo.find(params)
                 .select('-__v -comments')
+                .sort({createdAt: -1})
         }
     },
 

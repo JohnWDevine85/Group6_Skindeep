@@ -15,6 +15,7 @@ const typeDefs = gql`
         _id: ID
         username: String
         commentBody: String
+        createdAt: String
     }
 
     type Tattoo {
@@ -25,6 +26,7 @@ const typeDefs = gql`
         description: String
         likes: Int
         comments: [Comment]
+        createdAt: String
     }
 
     type Auth {

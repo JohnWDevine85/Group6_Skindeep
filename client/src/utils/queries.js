@@ -63,10 +63,12 @@ query tattoo($_id: ID!) {
         image
         description
         likes
+        createdAt
         comments {
             _id
             username
             commentBody
+            createdAt
         }
     }
 }
@@ -81,6 +83,7 @@ query tattoos($title: String) {
         image
         description
         likes
+        createdAt
     }
 }
 `;
