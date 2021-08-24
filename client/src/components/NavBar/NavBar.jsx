@@ -6,11 +6,13 @@ import Container from "react-bootstrap/Container";
 import InputGroup from "react-bootstrap/InputGroup";
 import FormControl from "react-bootstrap/FormControl";
 import Button from "react-bootstrap/Button";
+import ApplicationDrawer from "../Drawer/Drawer";
 
 export const NavBar = () => {
   return (
     <>
       <Navbar className="p-4" bg="dark" variant="dark">
+      <ApplicationDrawer className="ApplicationDrawer" href="ApplicationDrawer"></ApplicationDrawer>
         <Container>
           <Navbar.Brand id="NavTitle" href="#home">
             #SkinDeep
