@@ -11,15 +11,12 @@ const Drawer = () => {
     event.preventDefault();
   }
 
-  const { loading, data } = useQuery(GET_USER, {
-    variables: {
-      username: "test"
-    }});
-    const user = data?.user || '';
+  const { loading, data } = useQuery(GET_ME_BASIC);
+    const user = data?.me || '';
 
   return (
     <Menu showSettings={showSettings}>
-      {loading ? <div>Loading...</div> : <p id="username" className="item">{user.username} {user.email}</p>}
+      {loading ? <div>Loading...</div> : <p id="username" className="item">{user.username}</p>}
     </Menu>
   );
 };

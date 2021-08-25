@@ -31,6 +31,7 @@ export const NavBar = () => {
                 Search
               </Button>
             </InputGroup>
+            <Nav.Link href="login">Login</Nav.Link>
           </Nav>
         </Container>
       </Navbar>
