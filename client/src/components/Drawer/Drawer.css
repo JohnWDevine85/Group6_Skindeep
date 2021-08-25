@@ -12,3 +12,29 @@
   background: white;
   cursor: pointer;
 }
+
+.bm-burger-bars {
+  background: #e52fbd;
+}
+
+.bm-burger-button {
+  position: fixed;
+  width: 26px;
+  height: 20px;
+  left: 20px;
+  top: 20px;
+  padding: 5px;
+}
+
+.menu-item {
+  color: #e52fbd;
+  padding-top: 20px;
+  padding-left: 30px;
+}
+.menu-item:hover {
+  color: white;
+}
+
+#home {
+  margin-top: 120px;
+}

@@ -11,7 +11,7 @@ import Drawer from "../Drawer/Drawer";
 export const NavBar = () => {
   return (
     <>
-      <Drawer />
+    <Drawer />
       <Navbar className="p-4" bg="dark" variant="dark">
         <Container>
           <Navbar.Brand id="NavTitle" href="#home">

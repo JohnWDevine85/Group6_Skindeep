@@ -6,7 +6,6 @@ import Drawer from "./components/Drawer/Drawer";
 function App() {
   return (
     <div>
-      <Drawer />
       <NavBar />
     </div>
   );

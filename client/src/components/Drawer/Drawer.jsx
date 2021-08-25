@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Col, Collapse, Container, Row } from "react-bootstrap";
 import { slide as Menu } from "react-burger-menu";
+import "./Drawer.css"
 
 class Drawer extends React.Component {
   showSettings(event) {
@@ -8,6 +9,7 @@ class Drawer extends React.Component {
   }
 
   render() {
+
     return (
       <Menu>
         <a id="home" className="menu-item" href="/">
@@ -19,7 +21,7 @@ class Drawer extends React.Component {
         <a id="contact" className="menu-item" href="/contact">
           Contact
         </a>
-        <a onClick={this.showSettings} className="menu-item--small" href="">
+        <a onClick={this.showSettings} className="menu-item--small menu-item" href="">
           Settings
         </a>
       </Menu>
