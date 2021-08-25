@@ -10,16 +10,16 @@ const image9 = require("./image9.jpeg");
 const image10 = require("./image10.jpeg");
 
 const images = [
-  image1,
-  image2,
-  image3,
-  image4,
-  image5,
-  image6,
-  image7,
-  image8,
-  image9,
-  image10,
+  { img: image1, title: "Forearm Mandala" },
+  { img: image2, title: "Sunflower" },
+  { img: image3, title: "Leg" },
+  { img: image4, title: "Female Warrior" },
+  { img: image5, title: "Snake Flower" },
+  { img: image6, title: "COVID19" },
+  { img: image7, title: "Owl" },
+  { img: image8, title: "Planet" },
+  { img: image9, title: "Time" },
+  { img: image10, title: "Koi Fish" },
 ];
 
 module.exports = images;
