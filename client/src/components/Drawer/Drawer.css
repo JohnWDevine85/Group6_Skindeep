@@ -1,4 +1,14 @@
-#ApplicationDrawer {
-    color: #e52fbd;
-    margin-left: 5px;
+#burgBtn {
+  position: absolute;
+  left: 0 px;
+  top: 0 pz;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  margin: 0px;
+  padding: 0px;
+  border: none;
+  font-size: 0px;
+  background: white;
+  cursor: pointer;
 }

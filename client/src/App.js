@@ -1,13 +1,15 @@
 import logo from "./logo.svg";
 import "./App.css";
 import NavBar from "./components/NavBar/NavBar.jsx";
-import ApplicationDrawer from "./components/Drawer/Drawer.jsx";
+import Drawer from "./components/Drawer/Drawer";
 
 function App() {
   return (
-    <NavBar />
+    <div>
+      <Drawer />
+      <NavBar />
+    </div>
   );
-    
 }
 
 export default App;

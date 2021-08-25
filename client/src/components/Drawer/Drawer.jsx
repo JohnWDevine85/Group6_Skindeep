@@ -1,41 +1,30 @@
-import React, {useState} from "react";
-import { Drawer } from "react-bootstrap-drawer";
+import React, { useState } from "react";
 import { Col, Collapse, Container, Row } from "react-bootstrap";
-import "./Drawer.css";
+import { slide as Menu } from "react-burger-menu";
 
-const ApplicationDrawer = (props) => {
-  const [open, setOpen] = useState(false);
+class Drawer extends React.Component {
+  showSettings(event) {
+    event.preventDefault();
+  }
 
-  const handleToggle = () => setOpen(!open);
+  render() {
+    return (
+      <Menu>
+        <a id="home" className="menu-item" href="/">
+          Home
+        </a>
+        <a id="about" className="menu-item" href="/about">
+          About
+        </a>
+        <a id="contact" className="menu-item" href="/contact">
+          Contact
+        </a>
+        <a onClick={this.showSettings} className="menu-item--small" href="">
+          Settings
+        </a>
+      </Menu>
+    );
+  }
+}
 
-  return (
-    <Drawer {...props}>
-      <Drawer.Toggle id="ApplicationDrawer" onClick={handleToggle} />
-
-      <Collapse in={open}>
-        <Drawer.Overflow>
-          <Drawer.ToC>
-            <Drawer.Header href="/">Username</Drawer.Header>
-
-            <Drawer.Nav>
-              <Drawer.Item href="/settings">Sign Out</Drawer.Item>
-            </Drawer.Nav>
-          </Drawer.ToC>
-        </Drawer.Overflow>
-      </Collapse>
-    </Drawer>
-  );
-};
-
-const Application = (props) => {
-	return (
-		<Container fluid>
-			<Row className="flex-xl-nowrap">
-				<Col as={ ApplicationDrawer } xs={ 12 } md={ 3 } lg={ 2 } />
-				<Col xs={ 12 } md={ 9 } lg={ 10 }>{ props.children }</Col>
-			</Row>
-		</Container>
-	);
-};
-
-export default ApplicationDrawer;
+export default Drawer;
