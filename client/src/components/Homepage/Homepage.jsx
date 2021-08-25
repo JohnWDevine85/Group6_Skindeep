@@ -1,12 +1,13 @@
 import React from "react";
 import Card from 'react-bootstrap/Card';
 import { Col, Collapse, Container, Row } from "react-bootstrap";
+import './Homepage.css'
 
 const test = ["Hi this is an array", "Another one", "The last one", "Another one one", "Is this the last one?"]
 
 export const Homepage = () => {
   return (
-    <Row xs={1} md={2} className="g-4">
+    <Row xs={1} md={2} className="g-4 body">
       {test.map((testItem) => (
         <Col>
           <Card>

@@ -12,6 +12,7 @@ import {
 import { setContext } from "@apollo/client/link/context";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
+import SingleTattoo from "./pages/SingleTattoo";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 const httpLink = createHttpLink({
@@ -43,6 +44,7 @@ function App() {
             <Route exact path="/" component={Homepage} />
             <Route exact path="/login" component={Login} />
             <Route exact path="/signup" component={Signup} />
+            <Route exact path="/single/:id" component={SingleTattoo} />
           </Switch>
         </div>
       </Router>

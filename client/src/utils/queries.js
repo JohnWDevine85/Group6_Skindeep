@@ -28,6 +28,9 @@ query {
         _id
         username
         email
+        likedTattoos{
+            _id
+        }
     }
 }
 `;
@@ -60,15 +63,15 @@ query tattoo($_id: ID!) {
         _id
         title
         username
-        image
+
         description
         likes
-        createdAt
+t
         comments {
             _id
             username
             commentBody
-            createdAt
+
         }
     }
 }

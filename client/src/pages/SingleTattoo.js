@@ -3,7 +3,11 @@ import { useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 import { GET_TATTOO } from '../utils/queries';
 
+import CommentList from '../components/Comments/CommentList.jsx'
+
 import Auth from '../utils/auth'
+
+import Button from 'react-bootstrap/Button'
 
 // import ReactionList from '../components/ReactionList';
 // import ReactionForm from '../components/ReactionForm';
@@ -22,19 +26,25 @@ const SingleTattoo = () => {
     }
 
     return (
-        <div>
+        <div className='d-flex justify-content-center'>
+            {console.log(tattoo)}
             <div>
                 {/* Tattoo image */}
+                <p>There will be an image here</p>
             </div>
 
             <div>
                 <div>
-                    {/* user stuff, like, add comment */}
+                    
+                    {/* user stuff, description*/}
                 </div>
                 <div>
-                    {/* description */}
+                    <Button type='button' className='neon-btn mx-2' size='sm'>Comment</Button>
+                    <Button type='button' className='neon-btn mx-2' size='sm'>Like</Button>
+                    {/* buttons */}
                 </div>
                 <div>
+                    {tattoo.comments.length > 0 && <CommentList comments={tattoo.comments}/>}
                     {/* comments */}
                 </div>
             </div>
