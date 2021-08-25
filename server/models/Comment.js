@@ -1,28 +1,29 @@
-const mongoose = require('mongoose');
-const { Schema } = mongoose;
-const dateFormat = require('../utils/dateFormat');
-const commentSchema = new Schema({
-  tattoo_id: {
-    type: Schema.Types.ObjectId,
-    ref: 'Tattoo',
-    required: true,
+const { ValuesOfCorrectTypeRule } = require("graphql");
+const { Schema } = require("mongoose");
+const dateFormat = require("../utils/dateFormat");
+
+const commentSchema = new Schema(
+  {
+    username: {
+      type: String,
+      required: true,
+      maxlength: 280
+    },
+    commentBody: {
+      type: String,
+      required: true
+    },
+    createdAt: {
+      type: Date,
+      default: Date.now,
+      get: timestamp => dateFormat(timestamp)
+    }
   },
-  user_id: {
-    type: Schema.Types.ObjectId,
-    ref: 'User',
-    required: true,
-  },
-  // does this comment type need to be a string or should it reference a react component?
-  comment: {
-    type: String,
-  },
-  createdAt: {
-    type: Date,
-    default: Date.now,
-    get: timestamp => dateFormat(timestamp)
+  {
+    toJSON: {
+      getters: ValuesOfCorrectTypeRule
+    }
   }
-})
+);
 
-const Comment = mongoose.model('Comment', commentSchema);
-
-module.exports = Comment;
+module.exports = commentSchema;
