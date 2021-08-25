@@ -26,16 +26,27 @@ const resolvers = {
         },
 
         tattoo: async (parent, { _id }) => {
-            return Tattoo.findOne({ _id })
+            const tattoo = await Tattoo.findOne({ _id })
                 .select('-__v')
                 .populate('comments');
+
+            const updatedTattoo = JSON.parse(JSON.stringify(tattoo))
+            updatedTattoo.imageData = tattoo.imageData.toString('base64')
+            return updatedTattoo
         },
 
         tattoos: async (parent, { title }) => {
             const params = title ? { title } : {};
-            return Tattoo.find(params)
+
+            const tattoos = await Tattoo.find(params)
                 .select('-__v -comments')
-                .sort({createdAt: -1})
+                .sort({ createdAt: -1 });
+
+            return tattoos.map(tattoo => {
+                const updatedTattoo = JSON.parse(JSON.stringify(tattoo))
+                updatedTattoo.imageData = tattoo.imageData.toString('base64')
+                return updatedTattoo
+            });
         }
     },
 
@@ -80,18 +91,18 @@ const resolvers = {
             return newTattoo;
         },
 
-        removeTattoo: async( parent, {tattooId}, context) => {
+        removeTattoo: async (parent, { tattooId }, context) => {
             if (!context.user) {
                 throw new AuthenticationError('You need to be logged in!');
             }
 
             const updatedUser = await User.findOneAndUpdate(
-                {_id: context.user._id},
-                {$pull: {personalWork: {_id: tattooId}}},
-                {new: true}
+                { _id: context.user._id },
+                { $pull: { personalWork: { _id: tattooId } } },
+                { new: true }
             )
 
-            await Tattoo.findOneAndDelete({_id: tattooId});
+            await Tattoo.findOneAndDelete({ _id: tattooId });
 
             return updatedUser;
         },
@@ -110,7 +121,7 @@ const resolvers = {
 
             const updatedTattoo = await Tattoo.findOneAndUpdate(
                 { _id },
-                {$inc : {'likes' : 1}},
+                { $inc: { 'likes': 1 } },
                 { new: true }
             )
                 .populate('comments')
@@ -132,7 +143,7 @@ const resolvers = {
 
             const updatedTattoo = await Tattoo.findOneAndUpdate(
                 { _id },
-                {$inc : {'likes' : -1}},
+                { $inc: { 'likes': -1 } },
                 { new: true }
             )
                 .populate('comments')
@@ -140,17 +151,17 @@ const resolvers = {
             return updatedTattoo;
         },
 
-        addComment: async (parent, {tattooId, commentBody}, context) => {
+        addComment: async (parent, { tattooId, commentBody }, context) => {
             if (!context.user) {
                 throw new AuthenticationError('You need to be logged in!');
             }
 
             return await Tattoo.findOneAndUpdate(
-                {_id: tattooId},
-                {$push: {comments: {commentBody, username: context.user.username}}},
-                {new: true}
+                { _id: tattooId },
+                { $push: { comments: { commentBody, username: context.user.username } } },
+                { new: true }
             )
-            .populate('comments');
+                .populate('comments');
         }
     }
 };

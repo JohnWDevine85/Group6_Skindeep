@@ -60,7 +60,8 @@ query tattoo($_id: ID!) {
         _id
         title
         username
-        image
+        imageContent
+        imageData
         description
         likes
         createdAt
@@ -80,7 +81,8 @@ query tattoos($title: String) {
         _id
         title
         username
-        image
+        imageContent
+        imageData
         description
         likes
         createdAt

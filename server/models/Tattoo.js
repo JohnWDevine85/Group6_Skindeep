@@ -1,5 +1,6 @@
 const { Schema, model } = require('mongoose');
 const commentSchema = require('./Comment')
+const dateFormat = require('../utils/dateFormat')
 
 const tattooSchema = new Schema(
   {
@@ -12,9 +13,13 @@ const tattooSchema = new Schema(
       type: String,
       required: true,
     },
-    image: {
-      type: String,
+    imageData: {
+      type: Buffer,
       required: true,
+    },
+    imageContent: {
+      type: String,
+      required: true
     },
     description: {
       type: String,
@@ -26,7 +31,7 @@ const tattooSchema = new Schema(
     },
     comments: [commentSchema],
     createdAt: {
-      type: Date, 
+      type: Date,
       default: Date.now,
       get: timestamp => dateFormat(timestamp)
     }

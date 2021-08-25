@@ -7,9 +7,18 @@ import InputGroup from "react-bootstrap/InputGroup";
 import FormControl from "react-bootstrap/FormControl";
 import Button from "react-bootstrap/Button";
 
+import { useQuery } from "@apollo/client";
+import { GET_TATTOO } from "../../utils/queries";
+
 export const NavBar = () => {
+
+  // const { loading, data } = useQuery(GET_TATTOO, {
+  //   variables: { id: '6125523163938b08d764df2f' }
+  // });
+
   return (
     <>
+    {/* <img src = {data.tattoo.imageContent}></img> */}
       <Navbar className="p-4" bg="dark" variant="dark">
         <Container>
           <Navbar.Brand id="NavTitle" href="#home">
