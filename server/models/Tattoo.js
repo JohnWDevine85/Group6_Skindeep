@@ -13,11 +13,7 @@ const tattooSchema = new Schema(
       type: String,
       required: true,
     },
-    imageData: {
-      type: Buffer,
-      required: true,
-    },
-    imageContent: {
+    imageId: {
       type: String,
       required: true
     },

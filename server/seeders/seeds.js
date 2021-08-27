@@ -2,12 +2,22 @@ const faker = require('faker');
 const fs = require('fs');
 const path = require('path')
 
-const db = require('../config/connection');
+const { db, mongo } = require('../config/connection');
+
 const { User, Tattoo } = require('../models');
 
 db.once('open', async () => {
+    var bucket = new mongo.GridFSBucket(db.db, {
+        bucketName: 'images'
+    });
+
     await Tattoo.deleteMany({});
     await User.deleteMany({});
+
+    // clean the bucket
+    await new Promise((resolve, reject) => {
+        bucket.drop(resolve)
+    })
 
     // create user data
     const userData = [];
@@ -24,6 +34,8 @@ db.once('open', async () => {
 
     const createdUsers = await User.collection.insertMany(userData);
 
+
+
     // create Tattoos
     let createdTattoos = [];
     for (let i = 0; i < 10; i += 1) {
@@ -33,9 +45,9 @@ db.once('open', async () => {
         const randomUserIndex = Math.floor(Math.random() * createdUsers.ops.length);
         const { username } = createdUsers.ops[randomUserIndex];
 
+        // seed images
         const imageIndex = 1//Math.floor(Math.random() * 10) + 1;
-        const imageData = fs.readFileSync(path.join(`./seeders/images/image${imageIndex}.png`), { encoding: 'base64' });
-        // const imageData = fs.readFileSync(`./images/image${imageIndex}.png`);
+        const imageId = await writeImage(bucket, `image${imageIndex}.png`);
 
         const description = faker.lorem.words(Math.round(Math.random() * 20) + 1);
 
@@ -43,8 +55,7 @@ db.once('open', async () => {
             {
                 title,
                 username,
-                imageData,
-                imageContent: 'image/png',
+                imageId,
                 description
             });
 
@@ -77,3 +88,16 @@ db.once('open', async () => {
     console.log('all done!');
     process.exit(0);
 });
+
+const writeImage = (bucket, imageName) => {
+    return new Promise((resolve, reject) => {
+        fs.createReadStream(`./seeders/images/${imageName}`).
+            pipe(bucket.openUploadStream(imageName)).
+            on('error', function (error) {
+                reject(error)
+            }).
+            on('finish', function (image) {
+                resolve(image._id);
+            });
+    })
+}
