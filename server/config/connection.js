@@ -10,4 +10,4 @@ mongoose.connect(
   }
 );
 
-module.exports = mongoose.connection;
+module.exports = {db: mongoose.connection, mongo: mongoose.mongo};

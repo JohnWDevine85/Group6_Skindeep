@@ -36,7 +36,15 @@ function showNavigation() {
   }
 }
 
+import { useQuery } from "@apollo/client";
+import { GET_TATTOO } from "../../utils/queries";
+
 export const NavBar = () => {
+
+  // const { loading, data } = useQuery(GET_TATTOO, {
+  //   variables: { id: '6125523163938b08d764df2f' }
+  // });
+
   return (
     <>
       <Drawer />

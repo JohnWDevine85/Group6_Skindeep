@@ -22,7 +22,7 @@ const typeDefs = gql`
         _id: ID
         title: String
         username: String
-        image: String
+        imageId: ID
         description: String
         likes: Int
         comments: [Comment]
