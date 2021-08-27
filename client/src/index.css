@@ -1,5 +1,6 @@
 :root {
-  --neonPink: #e52fbd
+  --neonPink: #e52fbd;
+  --dark: #212529;
 }
 
 body {
@@ -27,7 +28,19 @@ code {
 }
 
 .neon-btn:hover {
-  background-color: black;
+  background-color: var(--dark);
   box-shadow: 0 0 10px white;
   border-color: transparent;
+  cursor: pointer;
+}
+
+.link {
+  text-decoration: none;
+  color: var(--neonPink);
+}
+
+.link:hover {
+  cursor: pointer;
+  color: yellowgreen;
+  text-decoration: underline;
 }

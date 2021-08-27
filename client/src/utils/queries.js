@@ -58,20 +58,20 @@ query {
 `;
 
 export const GET_TATTOO = gql`
-query tattoo($_id: ID!) {
-    tattoo(_id: $_id) {
+query tattoo($id: ID!) {
+    tattoo(_id: $id) {
         _id
         title
         username
 
         description
         likes
-t
+
         comments {
             _id
             username
             commentBody
-
+            createdAt
         }
     }
 }
