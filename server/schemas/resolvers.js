@@ -26,27 +26,17 @@ const resolvers = {
         },
 
         tattoo: async (parent, { _id }) => {
-            const tattoo = await Tattoo.findOne({ _id })
+            return await Tattoo.findOne({ _id })
                 .select('-__v')
                 .populate('comments');
-
-            const updatedTattoo = JSON.parse(JSON.stringify(tattoo))
-            updatedTattoo.imageData = tattoo.imageData.toString('base64')
-            return updatedTattoo
         },
 
         tattoos: async (parent, { title }) => {
             const params = title ? { title } : {};
 
-            const tattoos = await Tattoo.find(params)
+            return await Tattoo.find(params)
                 .select('-__v -comments')
                 .sort({ createdAt: -1 });
-
-            return tattoos.map(tattoo => {
-                const updatedTattoo = JSON.parse(JSON.stringify(tattoo))
-                updatedTattoo.imageData = tattoo.imageData.toString('base64')
-                return updatedTattoo
-            });
         }
     },
 

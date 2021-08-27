@@ -34,8 +34,6 @@ db.once('open', async () => {
 
     const createdUsers = await User.collection.insertMany(userData);
 
-
-
     // create Tattoos
     let createdTattoos = [];
     for (let i = 0; i < 10; i += 1) {
@@ -58,7 +56,6 @@ db.once('open', async () => {
                 imageId,
                 description
             });
-
 
         const updatedUser = await User.updateOne(
             { username },

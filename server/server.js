@@ -7,10 +7,6 @@ const { authMiddleware } = require('./utils/auth');
 //db = mongoose.connection()
 const { db, mongo } = require('./config/connection');
 
-// GridFS for photo storage
-var Grid = require('gridfs-stream');
-var GridFS = Grid(db, mongo);
-
 const PORT = process.env.PORT || 3001;
 const app = express();
 
