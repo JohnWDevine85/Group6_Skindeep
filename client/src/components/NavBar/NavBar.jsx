@@ -6,6 +6,35 @@ import Container from "react-bootstrap/Container";
 import InputGroup from "react-bootstrap/InputGroup";
 import FormControl from "react-bootstrap/FormControl";
 import Button from "react-bootstrap/Button";
+import Drawer from "../Drawer/Drawer";
+import Auth from "../../utils/auth";
+import { Link } from "react-router-dom";
+
+function showNavigation() {
+  if (Auth.loggedIn()) {
+    return (
+      <ul className="flex-row">
+        <li className="mx-1">
+          {/* this is not using the Link component to logout or user and then refresh the application to the start */}
+          <a href="/" onClick={() => Auth.logout()}>
+            Logout
+          </a>
+        </li>
+      </ul>
+    );
+  } else {
+    return (
+      <ul className="flex-row">
+        <li className="mx-1">
+          <Link to="/signup">Signup</Link>
+        </li>
+        <li className="mx-1">
+          <Link to="/login">Login</Link>
+        </li>
+      </ul>
+    );
+  }
+}
 
 import { useQuery } from "@apollo/client";
 import { GET_TATTOO } from "../../utils/queries";
@@ -18,7 +47,7 @@ export const NavBar = () => {
 
   return (
     <>
-    {/* <img src = {data.tattoo.imageContent}></img> */}
+      <Drawer />
       <Navbar className="p-4" bg="dark" variant="dark">
         <Container>
           <Navbar.Brand id="NavTitle" href="#home">
@@ -38,6 +67,7 @@ export const NavBar = () => {
                 Search
               </Button>
             </InputGroup>
+            <nav>{showNavigation()}</nav>
           </Nav>
         </Container>
       </Navbar>

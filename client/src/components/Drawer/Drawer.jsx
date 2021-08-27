@@ -1,26 +1,24 @@
-import { Drawer } from "react-bootstrap-drawer";
+import { useQuery } from "@apollo/client";
+import React, { useState } from "react";
 import { Col, Collapse, Container, Row } from "react-bootstrap";
-import {useState} from 'react';
-const ApplicationDrawer = (props) => {
-  const [open, setOpen] = useState(false);
+import { slide as Menu } from "react-burger-menu";
+import { GET_ME_BASIC, GET_USER } from "../../utils/queries";
+import "./Drawer.css";
 
-  const handleToggle = () => setOpen(!open);
+const Drawer = () => {
+
+  const showSettings = (event) => {
+    event.preventDefault();
+  }
+
+  const { loading, data } = useQuery(GET_ME_BASIC);
+    const user = data?.me || '';
 
   return (
-    <Drawer {...props}>
-      <Drawer.Toggle onClick={handleToggle} />
-
-      <Collapse in={open}>
-        <Drawer.Overflow>
-          <Drawer.ToC>
-            <Drawer.Header href="/">Application</Drawer.Header>
-
-            <Drawer.Nav>
-              <Drawer.Item href="/settings">Settings</Drawer.Item>
-            </Drawer.Nav>
-          </Drawer.ToC>
-        </Drawer.Overflow>
-      </Collapse>
-    </Drawer>
+    <Menu showSettings={showSettings}>
+      {loading ? <div>Loading...</div> : <p id="username" className="item">{user.username}</p>}
+    </Menu>
   );
 };
+
+export default Drawer;
