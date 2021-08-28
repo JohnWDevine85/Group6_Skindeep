@@ -50,9 +50,13 @@ export const NavBar = () => {
       <Drawer />
       <Navbar className="p-4" bg="dark" variant="dark">
         <Container>
+         <Row>
+          <Col xs={12} md={6}>
           <Navbar.Brand id="NavTitle" href="#home">
             #SkinDeep
           </Navbar.Brand>
+          </Col>
+          <Col xs={12} md={6}>
           <Nav className="ml-auto">
             <Nav.Link href="#home">Home</Nav.Link>
             <Nav.Link href="#features">Features</Nav.Link>
@@ -66,9 +70,12 @@ export const NavBar = () => {
               <Button variant="outline-secondary" id="button-addon2">
                 Search
               </Button>
+              </Row>
             </InputGroup>
             <nav>{showNavigation()}</nav>
-          </Nav>
+           </Nav>
+          </Col>
+          </Row>
         </Container>
       </Navbar>
     </>

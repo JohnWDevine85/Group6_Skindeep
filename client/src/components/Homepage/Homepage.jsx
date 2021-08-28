@@ -6,15 +6,19 @@ import images from "../../images";
 
 export const Homepage = () => {
   return (
-    <Container style={{ justifyContent: "center" }}>
-      <Row style={{ backgroundColor: "#282c34" }} xs={1} md={2} className="g-4">
+    <Container fluid style={{ justifyContent: "center" }}>
+      <Row style={{ backgroundColor: "#282c34" }} xs={12} md={6} lg={4} className="g-4">
         {images.map((img) => (
           <Col>
             <Card
               style={{
-                width: "40rem",
+                @media screen and (max-width: 540px) {
+                  flex: 0 70%;
+  }
+                width: "80%",
                 backgroundColor: "#282c34",
                 color: "#e52fbd",
+                padding: "30px",
               }}
             >
               <Card.Img variant="top" src={img.img.default} />
