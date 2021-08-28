@@ -1,5 +1,6 @@
 :root {
   --neonPink: #e52fbd;
+  --neonGreen: #43cd32;
   --dark: #212529;
 }
 
@@ -20,14 +21,28 @@ code {
     monospace;
 }
 
-.neon-btn {
+.neon-pink-btn {
   background-color: var(--neonPink);
   box-shadow: 0 0 10px var(--neonPink);
   color: white;
   border-color: transparent;
 }
 
-.neon-btn:hover {
+.neon-pink-btn:hover {
+  background-color: var(--dark);
+  box-shadow: 0 0 10px white;
+  border-color: transparent;
+  cursor: pointer;
+}
+
+.neon-green-btn {
+  background-color: var(--neonGreen);
+  box-shadow: 0 0 10px var(--neonGreen);
+  color: white;
+  border-color: transparent;
+}
+
+.neon-green-btn:hover {
   background-color: var(--dark);
   box-shadow: 0 0 10px white;
   border-color: transparent;
@@ -41,6 +56,6 @@ code {
 
 .link:hover {
   cursor: pointer;
-  color: yellowgreen;
+  color: var(--neonGreen);
   text-decoration: underline;
 }

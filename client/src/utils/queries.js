@@ -65,7 +65,6 @@ query tattoos($title: String) {
         title
         username
         imageId
-        description
         likes
         createdAt
     }

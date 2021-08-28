@@ -38,13 +38,13 @@ db.once('open', async () => {
     let createdTattoos = [];
     for (let i = 0; i < 10; i += 1) {
 
-        const title = faker.lorem.words(Math.round(Math.random() * 4) + 1);
+        const title = faker.random.words(Math.round(Math.random() * 4) + 1);
 
         const randomUserIndex = Math.floor(Math.random() * createdUsers.ops.length);
         const { username } = createdUsers.ops[randomUserIndex];
 
         // seed images
-        const imageIndex = 1//Math.floor(Math.random() * 10) + 1;
+        const imageIndex = Math.floor(Math.random() * 10) + 1;
         const imageId = await writeImage(bucket, `image${imageIndex}.png`);
 
         const description = faker.lorem.words(Math.round(Math.random() * 20) + 1);

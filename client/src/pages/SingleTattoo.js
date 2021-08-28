@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useParams } from 'react-router-dom';
-import { useQuery, useMutation, useLazyQuery } from '@apollo/client';
+import { useQuery, useMutation } from '@apollo/client';
 import { GET_ME_BASIC, GET_TATTOO } from '../utils/queries';
 
 import CommentList from '../components/Comments/CommentList.jsx'
@@ -12,8 +12,8 @@ import { LIKE_TATTOO, UNLIKE_TATTOO } from '../utils/mutations';
 
 
 const SingleTattoo = () => {
-    const [likeTattoo, { error: likeError }] = useMutation(LIKE_TATTOO);
-    const [unlikeTattoo, { error: unlikeError }] = useMutation(UNLIKE_TATTOO);
+    const [likeTattoo] = useMutation(LIKE_TATTOO);
+    const [unlikeTattoo] = useMutation(UNLIKE_TATTOO);
 
     const { id: tattooId } = useParams();
 
@@ -50,7 +50,7 @@ const SingleTattoo = () => {
             <h2 className='my-3'>{tattoo.title}</h2>
 
             <Row>
-                <Col xs='12' lg='6'>
+                <Col xs='12' lg='6' className='text-center'>
                     {(!process.env.NODE_ENV || process.env.NODE_ENV === 'development') ? (
                         // dev code
                         <Image src={`http://localhost:3001/api/image/${tattoo.imageId}`} aria='tattoo' rounded fluid></Image>
@@ -79,10 +79,18 @@ const SingleTattoo = () => {
                             </p>
                             {Auth.loggedIn() && userData ? (
                                 <>
-                                    <Button type='button' className='neon-btn mx-2' size='sm'>Comment</Button>
-                                    <Button type='button' className='neon-btn mx-2' size='sm' onClick={() => likeToggle()}>
-                                        {userData.me.likedTattoos.find(id => id === tattooId) ? 'Unlike' : 'Like'}
-                                    </Button>
+                                    <Button type='button' className='neon-pink-btn mx-2' size='sm'>Comment</Button>
+                                    {userData.me.likedTattoos.find(id => id === tattoo._id) ? (
+                                        <Button type='button' className='neon-green-btn' size='sm' onClick={() => likeToggle()}>
+                                            Unlike
+                                        </Button>
+
+                                    ) : (
+
+                                        <Button type='button' className='neon-pink-btn' size='sm' onClick={() => likeToggle()}>
+                                            Like
+                                        </Button>
+                                    )}
                                 </>
                             ) : (<></>)}
                         </Col>
