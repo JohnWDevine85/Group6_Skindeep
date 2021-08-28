@@ -1,7 +1,6 @@
 const { Schema, model } = require('mongoose')
 const commentSchema = require('./Comment')
-var filePluginLib = require('mongoose-file');
-var filePlugin = filePluginLib.filePlugin;
+const dateFormat = require('../utils/dateFormat')
 
 const tattooSchema = new Schema(
   {
@@ -14,9 +13,9 @@ const tattooSchema = new Schema(
       type: String,
       required: true,
     },
-    image: {
+    imageId: {
       type: String,
-      required: true,
+      required: true
     },
     description: {
       type: String,

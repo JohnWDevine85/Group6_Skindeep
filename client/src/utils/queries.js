@@ -11,12 +11,12 @@ query user($username: String!) {
             _id
             title
             username
-            image
+            imageId
         }
         personalWork {
             _id
             title
-            image
+            imageId
         }
     }
 }
@@ -43,12 +43,12 @@ query {
             _id
             title
             username
-            image
+            imageId
         }
         personalWork {
             _id
             title
-            image
+            imageId
         }
     }
 }
@@ -60,7 +60,7 @@ query tattoo($_id: ID!) {
         _id
         title
         username
-        image
+        imageId
         description
         likes
         createdAt
@@ -80,7 +80,7 @@ query tattoos($title: String) {
         _id
         title
         username
-        image
+        imageId
         description
         likes
         createdAt
