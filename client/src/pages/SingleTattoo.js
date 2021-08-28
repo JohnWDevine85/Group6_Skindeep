@@ -29,7 +29,6 @@ const SingleTattoo = () => {
         return <div>Loading...</div>
     }
 
-
     const likeToggle = async () => {
         if (userData.me.likedTattoos.find(id => id === tattooId)) {
             try {
@@ -52,8 +51,14 @@ const SingleTattoo = () => {
 
             <Row>
                 <Col xs='12' lg='6'>
-                    {/* change from localhost */}
-                    <Image src={`http://localhost:3001/api/image/${tattoo.imageId}`} aria='tattoo' rounded fluid></Image>
+                    {(!process.env.NODE_ENV || process.env.NODE_ENV === 'development') ? (
+                        // dev code
+                        <Image src={`http://localhost:3001/api/image/${tattoo.imageId}`} aria='tattoo' rounded fluid></Image>
+
+                    ) : (
+                        // production code
+                        <Image src={`${window.location.hostname}/api/image/${tattoo.imageId}`} aria='tattoo' rounded fluid></Image>
+                    )}
                 </Col>
 
                 <Col>
