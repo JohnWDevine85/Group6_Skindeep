@@ -1,7 +1,7 @@
-import logo from "./logo.svg";
+// import logo from "./logo.svg";
 import "./App.css";
 import NavBar from "./components/NavBar/NavBar.jsx";
-import Drawer from "./components/Drawer/Drawer";
+// import Drawer from "./components/Drawer/Drawer";
 import Homepage from "./components/Homepage/Homepage";
 import {
   ApolloClient,
@@ -44,7 +44,7 @@ function App() {
             <Route exact path="/" component={Homepage} />
             <Route exact path="/login" component={Login} />
             <Route exact path="/signup" component={Signup} />
-            <Route exact path="/single/:id" component={SingleTattoo} />
+            <Route exact path="/tattoo/:id" component={SingleTattoo} />
           </Switch>
         </div>
       </Router>

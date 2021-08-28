@@ -7,7 +7,7 @@ const { db, mongo } = require('../config/connection');
 const { User, Tattoo } = require('../models');
 
 db.once('open', async () => {
-    var bucket = new mongo.GridFSBucket(db.db, {
+    const bucket = new mongo.GridFSBucket(db.db, {
         bucketName: 'images'
     });
 
@@ -75,7 +75,7 @@ db.once('open', async () => {
         const randomTattooIndex = Math.floor(Math.random() * createdTattoos.length);
         const { _id: tattooId } = createdTattoos[randomTattooIndex];
 
-        await Tattoo.updateOne(
+        const updatedTattoo = await Tattoo.updateOne(
             { _id: tattooId },
             { $push: { comments: { commentBody, username } } },
             { runValidators: true }

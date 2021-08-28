@@ -7,8 +7,8 @@ const typeDefs = gql`
         username: String
         email: String
         bio: String
-        likedTattoos: [Tattoo]
-        personalWork: [Tattoo]
+        likedTattoos: [ID]
+        personalWork: [ID]
     }
 
     type Comment {
@@ -22,10 +22,11 @@ const typeDefs = gql`
         _id: ID
         title: String
         username: String
-        imageId: ID
+        imageId: String
         description: String
         likes: Int
         comments: [Comment]
+        commentCount: Int
         createdAt: String
     }
 

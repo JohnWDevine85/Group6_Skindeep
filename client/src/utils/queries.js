@@ -7,17 +7,8 @@ query user($username: String!) {
         username
         email
         bio
-        likedTattoos {
-            _id
-            title
-            username
-            imageId
-        }
-        personalWork {
-            _id
-            title
-            imageId
-        }
+        likedTattoos
+        personalWork
     }
 }
 `;
@@ -28,9 +19,7 @@ query {
         _id
         username
         email
-        likedTattoos{
-            _id
-        }
+        likedTattoos
     }
 }
 `;
@@ -42,17 +31,8 @@ query {
         username
         email
         bio
-        likedTattoos {
-            _id
-            title
-            username
-            imageId
-        }
-        personalWork {
-            _id
-            title
-            imageId
-        }
+        likedTattoos 
+        personalWork 
     }
 }
 `;
@@ -66,7 +46,8 @@ query tattoo($id: ID!) {
         imageId
         description
         likes
-
+        commentCount
+        
         comments {
             _id
             username

@@ -26,14 +26,12 @@ const userSchema = new Schema(
     },
     likedTattoos: [
       {
-        type: Schema.Types.ObjectId,
-        ref: 'Tattoo'
+        type: String
       }
     ],
     personalWork: [
       {
-        type: Schema.Types.ObjectId,
-        ref: 'Tattoo'
+        type: String
       }
     ]
   }

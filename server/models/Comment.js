@@ -21,7 +21,7 @@ const commentSchema = new Schema(
   },
   {
     toJSON: {
-      getters: ValuesOfCorrectTypeRule
+      getters: true
     }
   }
 );

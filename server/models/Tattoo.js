@@ -34,10 +34,15 @@ const tattooSchema = new Schema(
   },
   {
     toJSON: {
+      virtuals: true,
       getters: true
     }
   }
 );
+
+tattooSchema.virtual('commentCount').get(function() {
+  return this.comments.length;
+});
 
 const Tattoo = model("Tattoo", tattooSchema);
 

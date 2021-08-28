@@ -43,10 +43,6 @@ export const LIKE_TATTOO = gql`
 mutation likeTattoo($tattooId: ID!) {
     likeTattoo(tattooId: $tattooId) {
         _id
-        title
-        username
-        image
-        description
         likes
     }
 }
@@ -56,10 +52,6 @@ export const UNLIKE_TATTOO = gql`
 mutation unlikeTattoo($tattooId: ID!) {
     unlikeTattoo(tattooId: $tattooId) {
         _id
-        title
-        username
-        image
-        description
         likes
     }
 }

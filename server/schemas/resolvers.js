@@ -8,9 +8,7 @@ const resolvers = {
         me: async (parent, args, context) => {
             if (context.user) {
                 const userData = await User.findOne({ _id: context.user._id })
-                    .select('-__v -password')
-                    .populate('likedTattoos')
-                    .populate('personalWork');
+                    .select('-__v -password');
 
                 return userData;
             }
@@ -20,9 +18,7 @@ const resolvers = {
 
         user: async (parent, { username }) => {
             return User.findOne({ username })
-                .select('-__v -password')
-                .populate('likedTattoos')
-                .populate('personalWork');
+                .select('-__v -password');
         },
 
         tattoo: async (parent, { _id }) => {
@@ -62,6 +58,7 @@ const resolvers = {
             }
 
             const token = signToken(user);
+            console.log(token);
             return { token, user };
         },
 
@@ -104,13 +101,14 @@ const resolvers = {
 
             const updatedUser = await User.findOneAndUpdate(
                 { _id: context.user._id },
-                { $addToSet: { likedTattoos: _id } },
+                { $addToSet: { likedTattoos: tattooId } },
                 { new: true }
             )
-                .populate('likedTattoos');
+
+            console.log(updatedUser);
 
             const updatedTattoo = await Tattoo.findOneAndUpdate(
-                { _id },
+                { _id: tattooId },
                 { $inc: { 'likes': 1 } },
                 { new: true }
             )
@@ -126,13 +124,12 @@ const resolvers = {
 
             const updatedUser = await User.findOneAndUpdate(
                 { _id: context.user._id },
-                { $pull: { likedTattoos: _id } },
+                { $pull: { likedTattoos: tattooId } },
                 { new: true }
             )
-                .populate('likedTattoos');
 
             const updatedTattoo = await Tattoo.findOneAndUpdate(
-                { _id },
+                { _id: tattooId },
                 { $inc: { 'likes': -1 } },
                 { new: true }
             )

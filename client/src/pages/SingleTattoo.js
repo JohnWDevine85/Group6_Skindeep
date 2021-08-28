@@ -1,20 +1,23 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { useQuery } from '@apollo/client';
-import { GET_TATTOO } from '../utils/queries';
+import { useQuery, useMutation, useLazyQuery } from '@apollo/client';
+import { GET_ME_BASIC, GET_TATTOO } from '../utils/queries';
 
 import CommentList from '../components/Comments/CommentList.jsx'
 
 import Auth from '../utils/auth'
-import { Col, Container, Row, Button } from "react-bootstrap";
+import { Col, Container, Row, Button, Image } from "react-bootstrap";
 import { Link } from 'react-router-dom';
+import { LIKE_TATTOO, UNLIKE_TATTOO } from '../utils/mutations';
 
-
-// import ReactionList from '../components/ReactionList';
-// import ReactionForm from '../components/ReactionForm';
 
 const SingleTattoo = () => {
+    const [likeTattoo, { error: likeError }] = useMutation(LIKE_TATTOO);
+    const [unlikeTattoo, { error: unlikeError }] = useMutation(UNLIKE_TATTOO);
+
     const { id: tattooId } = useParams();
+
+    const { data: userData, loading: userLoading } = useQuery(GET_ME_BASIC);
 
     const { loading, data } = useQuery(GET_TATTOO, {
         variables: { id: tattooId }
@@ -22,16 +25,35 @@ const SingleTattoo = () => {
 
     const tattoo = data?.tattoo || {};
 
-    if (loading) {
+    if (loading || userLoading) {
         return <div>Loading...</div>
     }
 
+
+    const likeToggle = async () => {
+        if (userData.me.likedTattoos.find(id => id === tattooId)) {
+            try {
+                const res = await unlikeTattoo({ variables: { tattooId } })
+            } catch (err) {
+                console.error('Failed to unlike tattoo', err)
+            }
+        } else {
+            try {
+                const res = await likeTattoo({ variables: { tattooId } })
+            } catch (err) {
+                console.error('Failed to unlike tattoo', err)
+            }
+        }
+        window.location.reload();
+    }
     return (
-        <Container>
+        <Container className='my-3'>
+            <h2 className='my-3'>{tattoo.title}</h2>
+
             <Row>
-                <Col xs='12' md='6'>
-                    {/* Tattoo image */}
-                    <p>There will be an image here</p>
+                <Col xs='12' lg='6'>
+                    {/* change from localhost */}
+                    <Image src={`http://localhost:3001/api/image/${tattoo.imageId}`} aria='tattoo' rounded fluid></Image>
                 </Col>
 
                 <Col>
@@ -39,27 +61,37 @@ const SingleTattoo = () => {
 
                         <Col xs='6'>
                             <p>{tattoo.description}</p>
-                            {/* user stuff, description*/}
                         </Col>
 
                         <Col xs='6' className='text-end'>
-                            <p>
+                            <div>
                                 user picture
-                            </p>
+                            </div>
                             <p>
                                 <Link to={`/profile/${tattoo.username}`} className='link'>
                                     {tattoo.username}
                                 </Link>
                             </p>
-                            <Button type='button' className='neon-btn mx-2' size='sm'>Comment</Button>
-                            <Button type='button' className='neon-btn mx-2' size='sm'>Like</Button>
+                            {Auth.loggedIn() && userData ? (
+                                <>
+                                    <Button type='button' className='neon-btn mx-2' size='sm'>Comment</Button>
+                                    <Button type='button' className='neon-btn mx-2' size='sm' onClick={() => likeToggle()}>
+                                        {userData.me.likedTattoos.find(id => id === tattooId) ? 'Unlike' : 'Like'}
+                                    </Button>
+                                </>
+                            ) : (<></>)}
                         </Col>
                     </Row>
-
-                    <div className='mt-3'>
-                        <h3>Comments</h3>
-                        {tattoo.comments.length > 0 && <CommentList comments={tattoo.comments} />}
-                    </div>
+                    {tattoo.commentCount ? (
+                        <div className='mt-3'>
+                            <h3>Comments</h3>
+                            {tattoo.commentCount > 0 && <CommentList comments={tattoo.comments} />}
+                        </div>
+                    ) : (
+                        <div className='mt-3'>
+                            <h3>No Comments</h3>
+                        </div>
+                    )}
                 </Col>
             </Row>
         </Container>
