@@ -50,14 +50,14 @@ const SingleTattoo = () => {
             <h2 className='my-3'>{tattoo.title}</h2>
 
             <Row>
-                <Col xs='12' lg='6' className='text-center'>
+                <Col xs='12' lg='6' className='text-center mb-4'>
                     {(!process.env.NODE_ENV || process.env.NODE_ENV === 'development') ? (
                         // dev code
-                        <Image src={`http://localhost:3001/api/image/${tattoo.imageId}`} aria='tattoo' rounded fluid></Image>
+                        <Image src={`http://localhost:3001/api/image/${tattoo.imageId}`} alt='tattoo' rounded fluid></Image>
 
                     ) : (
                         // production code
-                        <Image src={`${window.location.hostname}/api/image/${tattoo.imageId}`} aria='tattoo' rounded fluid></Image>
+                        <Image src={`${window.location.hostname}/api/image/${tattoo.imageId}`} alt='tattoo' rounded fluid></Image>
                     )}
                 </Col>
 
@@ -68,35 +68,47 @@ const SingleTattoo = () => {
                             <p>{tattoo.description}</p>
                         </Col>
 
-                        <Col xs='6' className='text-end'>
-                            <div>
-                                user picture
-                            </div>
-                            <p>
-                                <Link to={`/profile/${tattoo.username}`} className='link'>
+                        <Col xs='6' className='text-center'>
+
+                            <Row className='d-flex justify-content-center'>
+
+                                <div className='rounded-circle d-flex justify-content-center align-items-center' style={{ backgroundColor: "gray", height: '7rem', width: '7rem' }}>
+                                    <p>
+                                        User Image
+                                    </p>
+                                </div>
+                            </Row>
+
+                            <Row>
+                                <Link to={`/profile/${tattoo.username}`} className='link mt-2'>
                                     {tattoo.username}
                                 </Link>
-                            </p>
-                            {Auth.loggedIn() && userData ? (
-                                <>
-                                    <Button type='button' className='neon-pink-btn mx-2' size='sm'>Comment</Button>
-                                    {userData.me.likedTattoos.find(id => id === tattoo._id) ? (
-                                        <Button type='button' className='neon-green-btn' size='sm' onClick={() => likeToggle()}>
-                                            Unlike
-                                        </Button>
+                            </Row>
 
-                                    ) : (
+                            <Row>
+                                {Auth.loggedIn() && userData ? (
+                                    <div className='my-3'>
+                                        <Button type='button' className='neon-pink-btn mx-2' size='sm'>Comment</Button>
+                                        {userData.me.likedTattoos.find(id => id === tattoo._id) ? (
+                                            <Button type='button' className='neon-green-btn' size='sm' onClick={() => likeToggle()}>
+                                                Unlike
+                                            </Button>
 
-                                        <Button type='button' className='neon-pink-btn' size='sm' onClick={() => likeToggle()}>
-                                            Like
-                                        </Button>
-                                    )}
-                                </>
-                            ) : (<></>)}
+                                        ) : (
+
+                                            <Button type='button' className='neon-pink-btn' size='sm' onClick={() => likeToggle()}>
+                                                Like
+                                            </Button>
+                                        )}
+                                    </div>
+                                ) : (<></>)}
+                            </Row>
+
                         </Col>
                     </Row>
+
                     {tattoo.commentCount ? (
-                        <div className='mt-3'>
+                        <div className='mt-1'>
                             <h3>Comments</h3>
                             {tattoo.commentCount > 0 && <CommentList comments={tattoo.comments} />}
                         </div>

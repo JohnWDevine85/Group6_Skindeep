@@ -27,8 +27,8 @@ const resolvers = {
                 .populate('comments');
         },
 
-        tattoos: async (parent, { title }) => {
-            const params = title ? { title } : {};
+        tattoos: async (parent, { _id }) => {
+            const params = _id ? { _id } : {};
 
             return Tattoo.find(params)
                 .select('-__v -comments')

@@ -18,7 +18,7 @@ export const Homepage = () => {
   const { data, loading } = useQuery(GET_TATTOOS);
   const { data: userData, loading: userLoading } = useQuery(GET_ME_BASIC);
 
-  const tattoos = data?.tattoos || []
+  const tattoos = data?.tattoos || [];
 
   if (loading || userLoading) {
     return <div>Loading...</div>
@@ -51,10 +51,10 @@ export const Homepage = () => {
 
                 {(!process.env.NODE_ENV || process.env.NODE_ENV === 'development') ? (
                   // dev code
-                  <Card.Img variant="top" src={`http://localhost:3001/api/image/${tattoo.imageId}`} aria='tattoo' />
+                  <Card.Img variant="top" src={`http://localhost:3001/api/image/${tattoo.imageId}`} alt='tattoo' />
                 ) : (
                   // production code
-                  <Card.Img variant="top" src={`${window.location.hostname}/api/image/${tattoo.imageId}`} aria='tattoo' />
+                  <Card.Img variant="top" src={`${window.location.hostname}/api/image/${tattoo.imageId}`} alt='tattoo' />
                 )}
               </a>
 
@@ -65,7 +65,7 @@ export const Homepage = () => {
                 <Row>
 
                   <p>
-                    by <span className='link'>{tattoo.username}</span>
+                    by <a className='link' href={`/profile/${tattoo.username}`}>{tattoo.username}</a>
                   </p>
 
                   {Auth.loggedIn() && userData ? (

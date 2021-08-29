@@ -39,7 +39,7 @@ const typeDefs = gql`
         me: User
         user(username: String!): User
         tattoo(_id: ID!): Tattoo
-        tattoos(title: String): [Tattoo]
+        tattoos(_id: ID): [Tattoo]
     }
 
     type Mutation {
