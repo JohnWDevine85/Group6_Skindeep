@@ -43,7 +43,7 @@ export const NavBar = () => {
 
   const { loading, data } = useQuery(GET_ME);
   
-  const me = data?.me || "";
+  const me = data ? data.me : "";
   
 
   return (

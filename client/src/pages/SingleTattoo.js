@@ -23,7 +23,7 @@ const SingleTattoo = () => {
         variables: { id: tattooId }
     });
 
-    const tattoo = data?.tattoo || {};
+    const tattoo = data ? data.tattoo : {};
 
     if (loading || userLoading) {
         return <div>Loading...</div>

@@ -10,7 +10,7 @@ const TattooSlide = ({ tattooId }) => {
         variables: { _id: tattooId }
     })
 
-    const tattoo = data?.tattoos || {};
+    const tattoo = data ? data.tattoos : {};
 
     if (loading) {
         return <div>Loading...</div>
