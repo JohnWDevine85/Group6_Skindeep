@@ -12,7 +12,6 @@ import {
   FormControl,
   Button
 } from "react-bootstrap";
-// import Drawer from "../Drawer/Drawer";
 
 import Auth from "../../utils/auth";
 
@@ -49,7 +48,6 @@ export const NavBar = () => {
 
   return (
     <>
-      {/* <Drawer /> */}
       <Navbar className="p-4" bg="dark" variant="dark" expand='lg'>
         <Container>
 
