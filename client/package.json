@@ -3,7 +3,9 @@
   "proxy": "http://localhost:3001",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:3001",
+  "engines": {
+    "node": "14.x"
+  },
   "dependencies": {
     "@apollo/client": "^3.4.8",
     "@testing-library/jest-dom": "^5.14.1",
