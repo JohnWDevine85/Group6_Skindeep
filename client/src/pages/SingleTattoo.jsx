@@ -57,7 +57,7 @@ const SingleTattoo = () => {
 
                     ) : (
                         // production code
-                        <Image src={`${window.location.hostname}/api/image/${tattoo.imageId}`} alt='tattoo' rounded fluid></Image>
+                        <Image src={`/api/image/${tattoo.imageId}`} alt='tattoo' rounded fluid></Image>
                     )}
                 </Col>
 

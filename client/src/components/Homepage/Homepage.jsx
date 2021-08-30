@@ -54,7 +54,7 @@ export const Homepage = () => {
                   <Card.Img variant="top" src={`http://localhost:3001/api/image/${tattoo.imageId}`} alt='tattoo' />
                 ) : (
                   // production code
-                  <Card.Img variant="top" src={`${window.location.hostname}/api/image/${tattoo.imageId}`} alt='tattoo' />
+                  <Card.Img variant="top" src={`/api/image/${tattoo.imageId}`} alt='tattoo' />
                 )}
               </a>
 

@@ -28,7 +28,7 @@ const TattooSlide = ({ tattooId }) => {
                         <Card.Img className="d-block w-100" src={`http://localhost:3001/api/image/${tattoo[0].imageId}`} alt='tattoo' />
                     ) : (
                         // production code
-                        <Card.Img className="d-block w-100" src={`${window.location.hostname}/api/image/${tattoo[0].imageId}`} alt='tattoo' />
+                        <Card.Img className="d-block w-100" src={`/api/image/${tattoo[0].imageId}`} alt='tattoo' />
                     )}
                 </a>
 
