@@ -18,7 +18,7 @@ export const Homepage = () => {
   const { data, loading } = useQuery(GET_TATTOOS);
   const { data: userData, loading: userLoading } = useQuery(GET_ME_BASIC);
 
-  const tattoos = data?.tattoos || [];
+  const tattoos = data ? data.tattoos : [];
 
   if (loading || userLoading) {
     return <div>Loading...</div>

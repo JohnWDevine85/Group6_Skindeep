@@ -13,7 +13,7 @@ const Profile = () => {
         variables: { username }
     })
 
-    const user = userData?.user || {};
+    const user = userData ? userData.user : {};
 
     if (loading) {
         return <div>Loading...</div>
