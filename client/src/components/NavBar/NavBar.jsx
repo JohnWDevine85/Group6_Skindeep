@@ -1,40 +1,39 @@
 import React from "react";
-import Nav from "react-bootstrap/Nav";
-import "./NavBar.css";
-import Navbar from "react-bootstrap/Navbar";
-import Container from "react-bootstrap/Container";
-import InputGroup from "react-bootstrap/InputGroup";
-import FormControl from "react-bootstrap/FormControl";
-import Button from "react-bootstrap/Button";
-import Drawer from "../Drawer/Drawer";
-import Auth from "../../utils/auth";
 import { Link } from "react-router-dom";
 
-import { useQuery } from "@apollo/client";
-import { GET_TATTOO } from "../../utils/queries";
+import "./NavBar.css";
+import {
+  Container,
+  Row,
+  Col,
+  Nav,
+  Navbar,
+  InputGroup,
+  FormControl,
+  Button
+} from "react-bootstrap";
+// import Drawer from "../Drawer/Drawer";
 
-function showNavigation() {
+import Auth from "../../utils/auth";
+
+import { useQuery } from "@apollo/client";
+import { GET_ME } from "../../utils/queries";
+
+function showNavigation(username) {
   if (Auth.loggedIn()) {
     return (
-      <ul className="flex-row">
-        <li className="mx-1">
-          {/* this is not using the Link component to logout or user and then refresh the application to the start */}
-          <a href="/" onClick={() => Auth.logout()}>
-            Logout
-          </a>
-        </li>
-      </ul>
+      <>
+      <Button className=' neon-pink-btn mx-1' href={`/profile/${username}`}>View Profile</Button>
+      <Button className=' neon-pink-btn mx-1' href='/' onClick={() => Auth.logout()}>Logout</Button>
+      </>
     );
   } else {
     return (
-      <ul className="flex-row">
-        <li className="mx-1">
-          <Link to="/signup">Signup</Link>
-        </li>
-        <li className="mx-1">
-          <Link to="/login">Login</Link>
-        </li>
-      </ul>
+      <>
+        <Button className='neon-pink-btn mx-1' href="/signup">Signup</Button>
+        <Button className='neon-pink-btn mx-1' href="/login">Login</Button>
+      </>
+
     );
   }
 }
@@ -43,41 +42,42 @@ function showNavigation() {
 
 export const NavBar = () => {
 
-  // const { loading, data } = useQuery(GET_TATTOO, {
-  //   variables: { id: '6125523163938b08d764df2f' }
-  // });
+  const { loading, data } = useQuery(GET_ME);
+  
+  const me = data?.me || "";
+  
 
   return (
     <>
-      <Drawer />
-      <Navbar className="p-4" bg="dark" variant="dark">
+      {/* <Drawer /> */}
+      <Navbar className="p-4" bg="dark" variant="dark" expand='lg'>
         <Container>
-         <Row>
-          <Col xs={12} md={6}>
-          <Navbar.Brand id="NavTitle" href="#home">
+
+          <Navbar.Brand id="NavTitle" href="/">
             #SkinDeep
           </Navbar.Brand>
-          </Col>
-          <Col xs={12} md={6}>
-          <Nav className="ml-auto">
-            <Nav.Link href="#home">Home</Nav.Link>
-            <Nav.Link href="#features">Features</Nav.Link>
-            <Nav.Link href="#pricing">Pricing</Nav.Link>
-            <InputGroup className="mb-3">
-              <FormControl
-                placeholder="Search"
-                aria-label="Search"
-                aria-describedby="basic-addon2"
-              />
-              <Button variant="outline-secondary" id="button-addon2">
-                Search
-              </Button>
-              </Row>
-            </InputGroup>
-            <nav>{showNavigation()}</nav>
-           </Nav>
-          </Col>
-          </Row>
+
+          <Navbar.Toggle aria-controls="basic-navbar-nav" />
+          <Navbar.Collapse id="basic-navbar-nav" className="justify-content-end">
+
+            <Nav className="mr-auto">
+              <Nav.Link href="/">Home</Nav.Link>
+              {/* <Nav.Link href="#features">Features</Nav.Link> */}
+              {/* <Nav.Link href="#pricing">Pricing</Nav.Link> */}
+              <InputGroup className="mb-3">
+                <FormControl
+                  placeholder="Search"
+                  aria-label="Search"
+                  aria-describedby="basic-addon2"
+                />
+                <Button className='neon-pink-btn me-1' id="button-addon2">
+                  Search
+                </Button>
+                {showNavigation(me.username)}
+              </InputGroup>
+            </Nav>
+          </Navbar.Collapse>
+
         </Container>
       </Navbar>
     </>
